@@ -111,7 +111,7 @@ JAZZMIN_SETTINGS = {
         "auth.Group": "fas fa-users",
     },
     # Icons that are used when one is not manually specified
-    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_parents": "fas fa-thin-circle-right",
     "default_icon_children": "fas fa-circle",
 
     #################
@@ -138,7 +138,7 @@ JAZZMIN_SETTINGS = {
     # - vertical_tabs
     # - collapsible
     # - carousel
-    "changeform_format": "horizontal_tabs",
+    "changeform_format": "carousel",
     # override change forms on a per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
     # Add a language dropdown into the admin

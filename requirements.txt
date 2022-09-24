@@ -1,4 +1,4 @@
-asgiref==3.5.0
+asgiref==3.5.2
 attrs==21.4.0
 autobahn==22.4.2
 Automat==20.2.0
@@ -17,12 +17,14 @@ django-cms==3.10.0
 django-countries==7.3.2
 django-credit-cards==0.4.1
 django-crispy-forms==1.14.0
+django-form-utils==1.0.3
 django-formtools==2.3
 django-jazzmin==2.5.0
 django-model-utils==4.2.0
 django-multiselectfield==0.1.12
 django-sekizai==3.0.1
 django-star-ratings==0.9.2
+django-template-forms==0.3.1
 django-treebeard==4.5.1
 djangocms-admin-style==3.1.0
 djangocms-animate-on-scroll==1.0.1

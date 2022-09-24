@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'projects.apps.ProjectsConfig',
     'home.apps.HomeConfig',
     'jazzmin',
+    'django.forms',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,6 +79,8 @@ TEMPLATES = [
         },
     },
 ]
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 WSGI_APPLICATION = 'vigual.wsgi.application'
 
