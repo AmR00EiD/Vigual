@@ -1,0 +1,97 @@
+{% extends 'post/base.html' %} 
+{% block title %} {{post.id}}تفاصيل المشروع{% endblock %}
+{% load static %}
+
+
+{% block content %}
+
+<body>
+
+  
+
+  <main id="main" dir="rtl">
+  
+  
+
+	 <!-- ======= title Section ======= -->
+	 <section id="portfolio" class="portfolio">
+		<div class="container">
+  
+		  <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+			<h2>تفاصيل المشروع</h2>
+		
+
+  
+	<!-- End title Section -->
+
+       <!-- ======= posts Section ======= -->
+       <section id="testimonials">
+        <div class="container" data-aos="fade-up"> 
+            <div class="row">
+                <div class="col-md-3">
+                  <div class="profile">
+                    <a href="{% url 'accounts:clientdetail' post.author.slug %}"><div class="pic"><img src="{{ post.author.user.Profileimg.url}}" alt=""></div></a>
+                    <h><a href="{% url 'accounts:clientdetail' post.author.slug %}">{{post.author.user.first_name}}     {{post.author.user.last_name}}</a></h>
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="quote">
+                    <b><img src="{%static 'img/quote_sign_left.png'%}" alt=""></b> 
+                    {{post.content}}   
+                  <small><img src="{%static 'img/quote_sign_right.png'%}" alt=""></small>
+
+                  </div>
+                </div>
+              </div>
+        </div>
+  
+        <form method="POST" action=''>
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-3">
+                <div class="profile">
+                  <a href="{% url 'accounts:freelancerprofile'  %}"><div class="pic"><img src="{{ user.Profileimg.url}}" alt=""></div></a>
+                  <h><a href="{% url 'accounts:freelancerprofile'  %}"> {{user.first_name}}   {{user.last_name}}  </a></h>
+                </div>
+
+              
+              </div>
+            <div class="col-md-9">
+                <div class="quote">
+                    <div class="row justify-content-between">
+                      <div class="col-md-4 mb-4">
+                        <div class="form-outline">
+                          <label class="form-label" for="form3Example1m">تحديد السعر </label>
+                          {{commentform.cost}}                        </div>
+                      </div>
+                      <div class="col-md-4 mb-4">
+                        <div class="form-outline">
+                          <label class="form-label" for="form3Example1n">تاريخ التسليم </label>
+                          {{commentform.date}}                        </div>
+                      </div>
+                      
+                    </div>
+                  <div class="d-flex justify-content-center pt-3">
+                      <a><button type="submit" class="btn btn-light btn-m ms-2"> تقديم الطلب </button></a>
+                  </div>
+  
+  
+                </div>
+              </div>
+          </div>
+        
+           
+
+          </div>
+    
+        </div></form>
+
+      </section><!-- End posts Section -->
+
+   
+    
+  </main><!-- End #main -->
+
+
+
+{% endblock content %}  

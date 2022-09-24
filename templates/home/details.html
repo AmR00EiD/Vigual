@@ -1,0 +1,91 @@
+{% extends 'home/base.html' %} 
+{% load static  %}
+
+{% block title %} تفاصيل المشروع :{{project.id}}  {% endblock %}
+
+
+{% block content %}
+  
+
+
+
+  
+
+
+
+	{% include  'parts/navbar.html' %}
+
+  <main id="main" dir="rtl">
+
+	<section id="projects" class="section-with-bg">
+
+		<div class="container" data-aos="fade-up">
+			<div class="section-title" data-aos="fade-in" data-aos-delay="100">
+				<h2>تفاصيل المشروع</h2>
+					 <p>{{project.Name}}</p>
+					<p>{{project.cat}}</p>
+					<p>{{project.date}}</p>
+					<p>{{project.content}}</p>
+			</div>
+				
+		
+				
+		
+				<div class="row portfolio-container" data-aos="fade-up">
+		
+					
+					<div class="col-lg-6 col-md-6 portfolio-item filter-app">
+						<div class="portfolio-wrap">
+							
+								<img src="{{project.Project.url}}" class="img-fluid" alt=""> 
+							
+						</div>
+					</div>
+
+
+
+
+					<div class="col-lg-6 col-md-6 portfolio-item filter-app">
+						<div class="portfolio-wrap">
+							{% if project.other %}
+								<img src="{{project.other.url}}" class="img-fluid" alt=""> 
+							 {% endif %}
+						</div>
+					</div>
+
+
+		
+					<div class="col-lg-6 col-md-6 portfolio-item filter-app">
+						<div class="portfolio-wrap">
+							{% if project.other2 %}
+								<img src="{{project.other2.url}}" class="img-fluid" alt=""> 
+							{% endif %} 
+						</div>
+					</div>
+
+				
+
+		
+					<div class="col-lg-6 col-md-6 portfolio-item filter-app">
+						<div class="portfolio-wrap">
+							{% if project.other3 %}
+								<img src="{{project.other3.url}}" class="img-fluid" alt="">
+							 {% endif %} 
+						</div>
+					</div>
+
+				</div>
+		
+			
+		</section><!-- End Hotels Section -->
+
+ 
+    
+  </main><!-- End #main -->
+
+
+
+
+
+
+{% endblock content %}

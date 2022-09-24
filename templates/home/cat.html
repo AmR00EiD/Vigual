@@ -1,0 +1,84 @@
+
+{% extends 'home/base.html' %} 
+{% load static %}
+{% load thumbnail %}
+{% block title %} {{ sidcat.CATName_arbic }} {% endblock %}
+
+
+{% block content %}
+<body >
+
+  <main id="main" class="main" dir="rtl">
+
+  
+
+      <!-- ======= projects Section ======= -->
+      <section id="projects" class="section-with-bg">
+
+        <div class="container" data-aos="fade-up">
+          <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+            {% if sidcat.parent.CATName_arbic == NULL %}
+              <h2>{{ sidcat.CATName_arbic }}</h2>
+            {% else %}
+              <h2>{{ sidcat.parent.CATName_arbic }}</h2>
+              <p>{{ sidcat.CATName_arbic }}</p>
+            {% endif %}
+            
+            
+            
+            
+            </div>
+  
+            <div class="row" data-aos="fade-up" data-aos-delay="100">
+          
+          
+              {% spaceless %}
+              {% for pr in pro88 %}
+              
+                  <div class="col-lg-3 col-md-5" >
+                    <div class="project" >
+                        <div class="project-img" style="  max-width:100%;width: auto;height: 50ram;object-fit:cover;">
+    
+                          {% thumbnail pr.Project 300x300 crop="smart" as im %}
+                          <img  src="{{im.url}}" alt="project 1" class="card-img-top img-fluid w-lg-75 w-md-50 w-100 "  >
+                          
+                        </div>
+                        
+                        <h3>
+    
+                            {% if user.username == pr.freelancerr.user.username %}
+                                <a href="{% url 'accounts:freelancerprofile'  %}"> {{pr.freelancerr.user.first_name}}   {{pr.freelancerr.user.last_name}}</a>
+                            {% else %}
+                                <a href="{% url 'accounts:freelancerdetail' pr.freelancerr.slug %}"> {{pr.freelancerr.user.first_name}}    {{pr.freelancerr.user.last_name}}</a>
+    
+                            {% endif %}
+                            
+                          
+                          </h3>
+                          <p>{{ pr.freelancerr.person_cat }} </p>
+                        
+    
+        
+    
+    
+                         
+                        <a href="{% url 'project_det' pr.id %}"  class="portfolio-lightbox" title="تفاصيل المشروع "><i class="bx bx-link"></i></a>
+                        
+                  </div>
+                </div> 
+                
+              {% endfor %}{% endspaceless %}
+            </div>  
+  
+
+        
+
+        </div>
+  
+      </section><!-- End Hotels Section -->
+
+  </main><!-- End #main -->
+
+
+
+  {% endblock content %}

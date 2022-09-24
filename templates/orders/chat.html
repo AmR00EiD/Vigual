@@ -1,0 +1,85 @@
+{% extends 'post/base.html' %} 
+{% block title %} الرسائل {% endblock %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+<main id="main" >
+
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-lg-12">         
+                    <div class="chat">
+                        
+                        
+                        
+                        <div class="chat-header clearfix">
+                            <div class="row ">
+                                <div class="col-lg-12" >
+                                    <div class="chat-about">
+                                            <h6 class="m-b-0">{{massage.author}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        {% for ff in massage  %}
+                            <div class="chat-history ">
+                                <ul class="m-b-0">
+                                        {% if ff.author == request.user %}
+                                            
+                                                
+                                                    <li class="clearfix">
+                                                        
+                                                        <div class="message-data float-right">
+                                                            <span class="message-data-time">{{ff.created_on}}</span>
+                                                            <img src="{{ff.author.Profileimg.url}}"alt="">
+                                                        </div> <br>
+                                                        <div class="message other-message float-right"> {{ff.content}} </div>
+                                                    </li>
+
+                                        {% else %}
+
+
+                                            <li class="clearfix">
+                                                <h6 class="m-b-0">{{ff.author.username}}</h6>
+                                                <div class="message-data">
+                                                    <span class="message-data-time">{{ff.created_on}}</span>
+                                                </div>
+                                                <div class="message my-message">{{ff.content}} </div>                                    
+                                            </li> 
+                                                
+                                        {% endif %}
+                                        
+                                </ul>
+                            </div>
+                            
+                        {% endfor %}
+
+                        <form method='POST'>
+                            {% csrf_token %}
+                                    <div class="chat-message clearfix">
+                                        <div class="input-group mb-0">
+                                            
+                                            <button class="input-group-text"><i class="fa fa-send"></i></button>
+                                            
+                                            {{massageform.content}}                                   
+                                        </div>
+                                    </div>
+                        </form>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+    
+ 
+
+</main><!-- End #main -->
+
+
+{% endblock content %}  

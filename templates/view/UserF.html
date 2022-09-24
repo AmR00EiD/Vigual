@@ -1,0 +1,152 @@
+{% extends 'profiles/base.html' %} 
+
+{% load static %}
+{% load thumbnail %}
+
+{% block content %}
+
+
+<body>
+
+
+  <main id="main" dir="rtl">
+  
+    <div class="container">
+		<div class="main-body">
+			<div class="row">
+                
+				<div class="col-lg-4">
+					<div class="card">
+						<div class="card-body">
+							<div class="d-flex flex-column align-items-center text-center">
+								<a href="{{ frde.user.Profileimg.url  }}" class="lightbox">
+									{% thumbnail frde.user.Profileimg 80x80 crop="smart" as im %}
+									<img src="{{ im.url }}"   class="rounded-circle p-1 bg-primary" width="110"    >
+									</a>
+								
+								<div class="mt-3">
+									<h4>{{ frde.user.first_name }}   {{ frde.user.last_name }}</h4>
+
+
+									
+											<p class="text-secondary mb-1">{{frde.person_cat}}</p>
+								
+
+
+									
+									<p class="text-muted font-size-sm">{{ frde.user.nationality }}</p>
+
+									{% if following %}
+									<a class="btn btn-primary text-decoration-none" href="{% url 'accounts:follow_or_unfollow_freelancer' frde.slug %}"> الغاء متابعة</a>
+									{% else %}
+									<a class="btn btn-primary text-decoration-none" href="{% url 'accounts:follow_or_unfollow_freelancer' frde.slug %}"> متابعة</a>
+									{% endif %}
+
+
+
+                                    <a type="submit" class="btn btn-outline-primary" href="{% url 'createchat' frde.user.id %}">مراسله</a>
+									<hr class="my-4">
+									<p class="text-muted font-size-sm">التقييم</p>
+									
+									
+									{% if ratee1.submit == True %}
+									<div class="progress mb-3" style="height: 5px">
+										<div class="progress-bar bg-warning" role="progressbar" style="width:  {{ ratee2.avg_rating }}%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="5"></div>
+									</div>
+
+
+									
+									{% else %}									
+											<form method='POST' action="" >
+												{% csrf_token %}
+												<div class="star">
+													<input type="radio" name="rate" value="1000"  >
+													<input type="radio" name="rate" value="80" >
+													<input type="radio" name="rate" value="60" >
+													<input type="radio" name="rate" value="40" >
+													<input type="radio" name="rate" value="20" >
+												</div>
+												<button class="btn btn-outline-warning btn-sm" type="submit">rate</button>
+											</form>
+									{% endif %}
+
+									
+									  <h5 class="notes">يتابع  <span class="notesN"> : {{	following5.count }}</span></h5> 
+									  <h5 class="notes">المتابعون  <span class="notesN"> : {{follow.count}}</span></h5> 
+									  <h5 class="notes">المشاريع  <span class="notesN"> : {{ j }}</span></h5> 
+								</div>
+							</div>
+					
+			
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="card">
+					
+					</div>
+
+                    <div class="row" id="about">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="d-flex align-items-center mb-3">نبذة عني</h5>
+									<p>	{{ frde.user.bio }}	</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	 <!-- ======= Portfolio Section ======= -->
+	 <section id="portfolio" class="portfolio">
+		<div class="container">
+  
+		  <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+			<h2>أعمالي</h2>
+		  </div>
+  
+		  <div class="row" data-aos="fade-in">
+			<div class="col-lg-12 d-flex justify-content-center">
+			<ul id="portfolio-flters">
+				
+					<li data-filter="*" class="filter-active">اعمالي</li>
+
+			</ul>
+			</div>
+		</div>
+		<div class="row portfolio-container" data-aos="fade-up">
+		{% for c in p %}
+		  
+  
+			<div class="col-lg-4 col-md-6 portfolio-item filter-app">
+			  <div class="portfolio-wrap">
+				{% thumbnail c.Project 500x300 crop="smart" as im %}
+				<img src="{{ im.url }}" class="img-fluid" alt="">
+				<div class="portfolio-links">
+				  <a href="{{ c.Project.url }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ c.Name }}"><i class="bx bx-plus"></i></a>
+				  <a href="{% url 'project_det' c.id %}"   title="تفاصيل المشروع "><i class="bx bx-link"></i></a>
+				</div>
+			  </div>
+			</div>
+		{% endfor %}
+
+		  </div>
+  
+		</div>
+	  </section><!-- End Portfolio Section -->
+
+  </main><!-- End #main -->
+
+
+
+
+
+</body>
+
+{% endblock content %}

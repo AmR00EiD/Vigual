@@ -1,0 +1,180 @@
+{% extends 'home/base.html' %} 
+{% load static %}
+{% load thumbnail %}
+
+{% block title %} نتيجة البحث عن : {{name}}  {% endblock %}
+
+
+{% block content %}
+
+  <main id="main" class="main" dir="rtl">
+
+    <!-- ======= projects Section ======= -->
+    <section id="projects" class="section-with-bg">
+
+      <div class="container" data-aos="fade-up">
+          <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+            <h2>{{name}}</h2>
+          </div>
+          <div class="row" data-aos="fade-up" data-aos-delay="100">
+          
+          
+            {% spaceless %}
+              {% if pro88.count  == 0 %}
+                <div class="row">
+                {% for person in allusers %}
+                
+                
+                  <div class="col-md-4 mb-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                          <img src="{{person.Profileimg.url}} " alt="Admin" class="rounded-circle" width="150">
+                          <div class="mt-3">
+                            <h4> {{person.first_name}} {{person.last_name}}</h4>
+
+                              {% if person.user_type == "freelancer"  %}
+                                <p class="text-secondary mb-1">فريلانسر</p>
+                              {% else %}
+                                <p class="text-secondary mb-1">عميل</p>
+                              {% endif %}
+
+                            
+
+
+
+
+                            <p class="text-muted font-size-sm">{{person.nationality}}</p>
+
+                            {% if user.username == person.username %}
+                              <a class="btn btn-outline-dark" href="{% url 'accounts:freelancerprofile'  %}">حسابي</a>
+                            {% else %}
+
+                              {% if person.user_type == "freelancer"  %}
+                                <a class="btn btn-outline-dark" href="{% url 'accounts:freelancerdetail' person.freelancer.slug %}">بروفايل</a>
+                              {% else %}
+                                <a class="btn btn-outline-dark" href="{% url 'accounts:clientdetail' person.client.slug %}">بروفايل</a>
+                              {% endif %}
+
+
+
+
+
+                            {% endif %}
+
+
+                            <a class="btn btn-outline-dark" href="{% url 'createchat' person.id %}">مراسله</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                {% endfor %}
+              
+              {% else %}
+            
+            
+            
+              
+              
+              {% for person in allusers %}
+              
+              
+              <div class="col-lg-3 col-md-5" >
+                <div class="project" >
+                    <div class="card-body ">
+                      <div class="d-flex flex-column align-items-center text-center">
+                        <img src="{{person.Profileimg.url}} " alt="Admin" class="rounded-circle" width="150">
+                        <div class="mt-3">
+                          <h4> {{person.first_name}} {{person.last_name}}</h4>
+
+                            {% if person.user_type == "freelancer"  %}
+                              <p class="text-secondary mb-1">فريلانسر</p>
+                            {% else %}
+                              <p class="text-secondary mb-1">عميل</p>
+                            {% endif %}
+                          <p class="text-muted font-size-sm">{{person.freelancer.person_cat}}</p>
+                          {% if user.username == person.username %}
+                            <a class="btn btn-outline-dark" href="{% url 'accounts:freelancerprofile'  %}">حسابي</a>
+                          {% else %}
+
+                            {% if person.user_type == "freelancer"  %}
+                              <a class="btn btn-outline-dark" href="{% url 'accounts:freelancerdetail' person.freelancer.slug %}">بروفايل</a>
+                            {% else %}
+                              <a class="btn btn-outline-dark" href="{% url 'accounts:clientdetail' person.client.slug %}">بروفايل</a>
+                            {% endif %}
+
+
+
+
+
+                          {% endif %}
+
+
+                          <a class="btn btn-outline-dark" href="{% url 'createchat' person.id %}">مراسله</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              {% endfor %}
+              
+            {% for pr in pro88 %}
+
+              
+                  <div class="col-lg-3 col-md-5" >
+                    <div class="project" >
+                        <div class="project-img" style="  max-width:100%;width: auto;height: 50ram;object-fit:cover;">
+    
+                          {% thumbnail pr.Project 300x300 crop="smart" as im %}
+                          <img  src="{{im.url}}" alt="project 1" class="card-img-top img-fluid w-lg-75 w-md-50 w-100 "  >
+                          
+                        </div>
+                        
+                        <h3>
+    
+                            {% if user.username == pr.freelancerr.user.username %}
+                                <a href="{% url 'accounts:freelancerprofile'  %}"> {{pr.freelancerr.user.first_name}}   {{pr.freelancerr.user.last_name}}</a>
+                            {% else %}
+                                <a href="{% url 'accounts:freelancerdetail' pr.freelancerr.slug %}"> {{pr.freelancerr.user.first_name}}    {{pr.freelancerr.user.last_name}}</a>
+    
+                            {% endif %}
+                            
+                          
+                          </h3>
+                          <p>{{ pr.freelancerr.person_cat }} </p>
+                        
+    
+        
+    
+    
+                        
+                        <a href="{% url 'project_det' pr.id %}"  class="portfolio-lightbox" title="تفاصيل المشروع "><i class="bx bx-link"></i></a>
+                        
+                  </div>
+                </div> 
+
+              
+
+              
+            {% endfor %}
+            {% endif %}
+            
+            
+            {% endspaceless %}
+          </div>  
+
+        
+
+      </div>
+
+    </section><!-- End Hotels Section -->
+
+  </main><!-- End #main -->
+
+{% endblock content %}
+
+
+
+
+

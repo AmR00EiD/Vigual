@@ -1,0 +1,109 @@
+{% load static %}
+
+
+
+     <!-- ======= Sidebar ======= -->
+  
+  
+    <aside id="sidebar" class="sidebar" dir="rtl">
+    
+          <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+              <a class="nav-link " href="{% url 'home' %}">
+                <span>الرئيسية</span>
+              </a>
+            </li><!-- End Dashboard Nav -->
+
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+              <span>الديكور</span><i class="bi bi-chevron-down ms-auto"></i>
+              </a>
+              <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            
+                <li>
+                  <a href="{% url 'cat'  slug='interior-design' %}">
+                    <span>التصميم الداخلي  </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'cat'  slug='external-design' %}">
+                    <span>التصميم الخارجي</span>
+                  </a>
+                </li>
+              </ul>
+            </li><!-- End decoration Nav -->
+
+
+            
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+              <span>جرافيك ديزاين</span><i class="bi bi-chevron-down ms-auto"></i>
+              </a>
+              <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                  <a href="{% url 'cat'  slug='uiux_design' %}">
+                    <span>UIUX Design</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'cat'  slug='logo-making' %}">
+                    <span>تصميم لوجو</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'cat'  slug='branding' %}">
+                    <span>براندينج</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'cat'  slug='social-media-post' %}">
+                      <span>تصميم بوستات سوشيال ميديا</span>
+                  </a>
+                </li>
+
+
+                
+
+
+           </ul>
+            </li><!-- End graphic Nav -->
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+              <span>موشن جرافيك</span><i class="bi bi-chevron-down ms-auto"></i>
+              </a>
+              <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                  <a href="{% url 'cat'  slug='animation' %}">
+                    <span>أنيميشن</span>
+                  </a>
+                </li>
+              </ul>
+            </li><!-- End motion Nav -->
+
+          
+           </ul>
+           {% if user.is_authenticated %}
+              <div class="sidenav-footer position-absolute w-100 bottom-0 ">
+                <div class="mx-5">
+                  <a class="btn bg-danger mb-3 w-100 text-white" href="/accounts/logout" type="button">تسجيل خروج</a>
+                </div>
+              </div> 
+            {% else %}
+              <div class="sidenav-footer position-absolute w-100 bottom-0 ">
+                <div class="mx-5">
+                  <a class="btn bg-danger mb-3 w-100 text-white" href="{% url 'accounts:login' %}" type="button"> تسجيل الدخول</a>
+                </div>
+              
+              
+                <div class="mx-5">
+                  <a class="btn bg-danger mb-3 w-100 text-white" href="{% url 'accounts:choose' %}" type="button">لا املك حساب</a>
+                </div>
+              </div> 
+            {% endif %} 
+
+    </aside><!-- End Sidebar-->
+  

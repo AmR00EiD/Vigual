@@ -1,0 +1,122 @@
+{% extends 'post/base.html' %} 
+{% block title %} المشاريع {% endblock %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+
+  
+
+
+  <main id="main" dir="rtl">
+  
+  
+
+	 <!-- ======= title Section ======= -->
+	 <section id="portfolio" class="portfolio">
+		<div class="container">
+  
+		  <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+			<h2>اطلب علي كيفك </h2>
+		  </div>
+        </div></section>
+
+  
+	<!-- End title Section -->
+      
+       <!-- ======= posts Section ======= -->
+       <section id="testimonials">
+        <div class="container" data-aos="fade-up"> 
+            {% if user.user_type == 'client' %}
+              <form method="POST">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="profile">
+                      <a href="{% url 'accounts:clientprofile'  %}"><div class="pic"><img src="{{ user.Profileimg.url}}" alt=""></div></a>
+                      <h><a href="{% url 'accounts:clientprofile'  %}">{{user.first_name}}   {{user.last_name}} </a></h>
+                    </div>
+                  </div>
+                  
+                    <div class="col-md-9">
+                      <div class="quote">
+                        <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
+                          <div class="form-group mb-4">
+                              <label for="text">كتابة مشروع </label>
+                              <br>
+                                {{ Form.content}}
+                              
+                          </div>
+                      </div>
+                        <br>
+                        <div class="d-flex justify-content-center pt-3">
+                            <button type="" class="btn btn-light btn-m ms-2"> نشر </button>
+                          </div>
+                      </div>
+                    </div>
+                  
+                </div></form> 
+            {% endif %}   
+          
+            {% for post in posts %}
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="profile">
+                      
+                         
+
+                      {% if user.username == post.author.user.username %}
+                        <a href="{% url 'accounts:clientprofile'  %}"><div class="pic"><img src="{{ post.author.user.Profileimg.url}}" alt=""  ></div></a>
+                        <h> <a href="{% url 'accounts:clientprofile'  %}">{{post.author.user.first_name}}   {{post.author.user.last_name}}</a></h>
+                      {% else %}
+                        <a href="{% url 'accounts:clientdetail' post.author.slug %}"><div class="pic"><img src="{{ post.author.user.Profileimg.url}}" alt=""  ></div></a>
+                        <h> <a href="{% url 'accounts:clientdetail' post.author.slug %}">{{post.author.user.first_name}}   {{post.author.user.last_name}}</a></h>
+                      {% endif %}
+
+
+
+
+
+
+
+
+
+                      
+                        
+                      
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="quote">
+                      <b><img src="{%static 'img/quote_sign_left.png'%}" alt=""></b> 
+                        {{post.content}}   
+                      <small><img src="{%static 'img/quote_sign_right.png'%}" alt=""></small>
+                      <br>
+                      <div class="d-flex justify-content-center pt-3">
+                          <a href="{% url 'post_det' post.id %}"><button type="button" class="btn btn-light btn-m ms-2"> المزيد </button></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            {% endfor %}
+          
+
+
+
+      
+  
+        </div>
+      </section><!-- End posts Section -->
+
+ 
+    
+  </main><!-- End #main -->
+
+
+{% endblock content %}  
+
+
+

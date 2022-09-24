@@ -1,0 +1,108 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>تسجيل الدخول</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{%static 'img/vicon.png'%}" rel="icon">
+  <link href="{%static 'img/apple-touch-icon.png'%}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="{%static 'https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i'%}" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{%static 'vendor/aos/aos.css'%}" rel="stylesheet">
+  <link href="{%static 'vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+  <link href="{%static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="{%static 'vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+  <link href="{%static 'vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+  <link href="{%static 'vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{%static 'css/form.css'%}" rel="stylesheet">
+  <link href="{%static 'css/style.css'%}" rel="stylesheet">
+
+</head>
+
+<body dir="rtl">
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top header-transparent">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+       <a href="{% url 'index' %}"><span><img src="{%static 'img/Vlogo.png'%}" height="180"></span></a>
+      </div>
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  
+  <main id="main">
+    
+    <div class="main-container">
+      
+  
+        <div id="log-in" class="left-container log-in">
+          <h1 class="f1">تسجيل دخول</h1>
+          <div style="width: 100%;">
+            
+            
+            
+            <form method="POST" action="login" class="signup-form f1">
+            {% csrf_token %}
+              <input type="text" id="username" name="username" placeholder="اسم المستخدم">
+              <input type="password" id="password" name="password" placeholder="كلمة المرور">
+              <button class="btn btn-primary" type="submit">تسجيل دخول</button>
+            </form>
+              {% if messages %}
+              <ul class="messages">
+                  {% for message in messages %}
+                  <div class="alert alert-primary" role="alert">
+                    {{ message }}
+                  </div>
+                  
+                
+                  {% endfor %}
+              </ul>
+    
+              {% endif %} 
+
+          </div>
+          <div class="login-link-container">
+            <a href="{% url 'accounts:choose' %}"> <p  class="login-link f1">لا يوجد ليدك حساب ؟ اضغط هنا !</p> </a>
+          </div>
+        </div>
+  
+        <div class="right-container"></div>
+      </div>
+
+  </main><!-- End #main -->
+
+
+
+  <!-- Vendor JS Files -->
+  <script src="{%static 'vendor/purecounter/purecounter.js'%}"></script>
+  <script src="{%static 'vendor/aos/aos.js'%}"></script>
+  <script src="{%static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+  <script src="{%static 'vendor/glightbox/js/glightbox.min.js'%}"></script>
+  <script src="{%static 'vendor/isotope-layout/isotope.pkgd.min.js'%}"></script>
+  <script src="{%static 'vendor/swiper/swiper-bundle.min.js'%}"></script>
+  <script src="{%static 'vendor/php-email-form/validate.js'%}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{%static 'js/main.js'%}"></script>
+
+</body>
+
+</html>

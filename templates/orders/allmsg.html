@@ -1,0 +1,152 @@
+{% extends 'post/base.html' %} 
+ 
+{% block title %} كل الرسائل {% endblock %}
+{% load tz %}
+{% load get_companion %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+
+
+
+  <main id="main" >
+
+  
+
+	 <!-- ======= title Section ======= -->
+
+  
+
+
+       <!-- ======= posts Section ======= -->
+  
+      
+  
+
+           
+<!--comments-->
+<div class="container mt-5">
+    <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+        <h2>كل الرسائل</h2>
+      </div>
+    <div class="row  d-flex justify-content-center">
+
+        <div class="col-md-8">
+          {% if chats1.count == 0 %}
+          <div class="headings d-flex justify-content-between align-items-center mb-3">
+            <h5>لا يوجد رسائل لعرضها</h5>
+          
+          {% else %}
+            <div class="headings d-flex justify-content-between align-items-center mb-3">
+                <h5>عرض جميع الرسائل</h5>
+
+            </div>
+            {% endif %}
+
+            {% for ch in chats1 %}
+              {% if ch.massage_set.count != 0 %}
+                {% with last_message=ch.massage_set.last %}
+                {% get_companion user ch as companion %}
+                    
+                <div class="card p-3">
+
+                      <div class="d-flex justify-content-between align-items-center">
+
+                          <div class="user d-flex flex-row align-items-center">
+
+                            <img src="{{companion.Profileimg.url}}" width="30" class="user-img rounded-circle mr-2">
+                            <span><a class="font-weight-bold text-primary" href="{% url 'createchat' companion.id %}">  {{ companion.first_name}}  {{ companion.last_name}}</a> 
+                            
+                              <small class=" date text-black-50">{{companion.user_type}} </small></span>
+                              
+                          </div>
+
+
+
+                      </div>
+                      <div class="border-top mt-2">
+                        
+                        <div class="action d-flex justify-content-between mt-2 align-items-center">
+                          {% if companion != last_message.author %}
+                          
+                              
+                              {% if last_message.is_readed == True %}
+                                <div class="reply px-4">
+                                  
+                                  <div class="text-danger">me: {{ last_message.content }}</div>
+                                  
+                                </div>
+                              {% else %}
+                              <div class="reply px-4">
+                                
+                                    <div class="text-warning">me: {{ last_message.content }}</div>
+                                
+                              </div>
+                              {% endif %}
+
+                            {% else %}  
+                              {% if last_message.is_readed == True %}
+                              <div class="reply px-4">
+                                
+                                {{ companion.first_name}} : {{ last_message.content }}
+                                
+                              </div>
+                            {% else %}
+                              <div class="reply px-4">
+                              <div class="text-info">{{ companion.first_name}} :{{ last_message.content }}</div>
+                              </div>
+                            {% endif %}
+
+                            {% endif %}
+                          
+                            <li class="pull-right text-muted"><small>{{ last_message.created_on|utc }}</small></li>
+                          
+                        </div>
+                        
+                      </div>
+                        
+                    </div>
+                {% endwith %}
+              {% endif %}
+            {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+            
+        
+
+
+          
+      </div>
+
+        </div>
+        
+    </div>
+    
+</div>
+      
+      </section><!-- End posts Section -->
+
+ 
+    
+  </main><!-- End #main -->
+
+
+  {% endblock content %}  

@@ -1,0 +1,300 @@
+{% load static %}
+{% load tz %}
+{% load thumbnail %}
+{% load get_companion %}
+<body>
+
+
+<header id="header" class="header fixed-top d-flex align-items-center N">
+
+    <div class="d-flex align-items-center justify-content-between">
+    
+      <!-- <i class="bi bi-list toggle-sidebar-btn"></i> -->
+    </div>
+    <!-- End Logo -->
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex  align-items-center">
+        <li class="nav-item dropdown ">
+          {% if user.is_authenticated %}
+            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" >
+              {% thumbnail user.Profileimg 80x80 crop="smart" as im %}
+              <img src="{{ im.url }}" alt="Profile" class="rounded-circle">
+            </a><!-- End Profile Iamge Icon -->
+            
+          {% endif %}
+
+
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            
+
+
+
+
+
+
+          {% if user.user_type == 'freelancer' %} 
+            <li>
+              <a class="dropdown-item d-flex " href="{% url 'accounts:freelancerprofile'  %}">
+                <span> صفحتي الشخصية</span>
+              </a>
+            </li>
+          {% else %}
+            <li>
+              <a class="dropdown-item d-flex " href="{% url 'accounts:clientprofile'  %}">
+                <span> صفحتي الشخصية</span>
+              </a>
+            </li>
+          {% endif %}  
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+
+            {% if user.user_type == 'freelancer' %} 
+            <li>
+              <a class="dropdown-item d-flex " href="{% url 'accounts:editfreelancer' %}">
+                <span> تعديل الحساب</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            {% else %}
+            <li>
+              <a class="dropdown-item d-flex " href="{% url 'accounts:editclient' %}">
+                <span> تعديل الحساب</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+          {% endif %}  
+
+
+
+
+
+            {% if user.user_type == 'freelancer' %}
+            
+            <li>
+              <a class="dropdown-item d-flex " href="{% url 'accounts:taslem' %}">
+                <span> اضافه عمل جديد</span>
+              </a>
+            </li>
+
+
+            {% endif %}
+            {% if user.user_type == 'freelancer' %}
+            
+            <li>
+              <a class="dropdown-item d-flex " href="{% url 'orderform' %}">
+                <span> انشاء عقد جديد</span>
+              </a>
+            </li>
+
+
+            {% endif %}
+            
+
+
+
+
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            {% if user.user_type == 'freelancer' %}
+              <li>
+                <a class="dropdown-item d-flex " href="{% url 'accounts:taslem2' %}">
+                  <span> العقود</span>
+                </a>
+              </li>
+            {% else %}
+            
+              <li>
+                <a class="dropdown-item d-flex " href="{% url 'accounts:estalm' %}">
+                  <span> العقود</span>
+                </a>
+              </li>
+            {% endif %}
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+          
+
+            <li>
+              <a class="dropdown-item d-flex bg-danger text-light" href="/accounts/logout">
+                <span> تسجيل خروج</span>
+              </a>
+            </li>
+            {% if user.is_authenticated %} 
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+              <i class="bi bi-chat"></i>
+            </a><!-- End Messages Icon -->
+    
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+              <li class="dropdown-header">
+                <a href="{% url 'chats' %}"><span class="badge rounded-pill bg-primary p-1 ms-2"> عرض الكل</span></a>
+                لديك  رسائل غير مقروءة
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+
+              {% for ch in chats1|slice:":3"%}
+              {% if ch.massage_set.count != 0 %}
+                {% with last_message=ch.massage_set.last %}
+                {% get_companion user ch as companion %}
+                    
+                  <li class="message-item">
+                    <a href="{% url 'createchat' companion.id %}">
+                      <div>
+                        <span><small class="font-weight-bold text-primary"> {{ companion.first_name}}  {{ companion.last_name}}</small> 
+                          <img src="{{companion.Profileimg.url}}" width="30" class="user-img rounded-circle mr-1">
+                          {% if companion != last_message.author %}
+                          
+                              
+                          {% if last_message.is_readed == True %}
+                            <div class="reply px-4">
+                              
+                              <div class="text-danger">me:</div>  {{ last_message.content }}
+                              
+                            </div>
+                          {% else %}
+                          <div class="reply px-4">
+                            <div class="text-warning">me: {{ last_message.content }}</div>
+                          </div>
+                          {% endif %}
+
+                        {% else %}  
+                          {% if last_message.is_readed == True %}
+                          <div class="reply px-4">
+                            
+                            {{ companion.first_name}} :{{ last_message.content }}
+                            
+                          </div>
+                        {% else %}
+                          <div class="reply px-4">
+                          <div class="text-info">{{ companion.first_name}} :{{ last_message.content }}</div>
+                          </div>
+                        {% endif %}
+
+                        {% endif %}
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  {% endwith %}
+                  {% endif %}
+                {% endfor %}
+              
+              <li class="dropdown-footer text-center">
+                <a href="{% url 'chats' %}"  style="text-decoration: none;">عرض جميع الرسائل</a>
+              </li>
+            {% endif %}
+            </ul><!-- End Messages Dropdown Items -->
+    
+          </li><!-- End Messages Nav -->
+
+          
+          <nav class="header-nav ms-auto">
+            <ul class="d-flex  align-items-center">
+              <li class="nav-item ">
+                <a class="nav-link item" href="{% url 'contactus' %}" >تواصل معنا</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link item " href="{% url 'about' %}" >المزيد عننا</a>
+              </li></ul>
+          </nav>
+        
+        
+
+          <div class="dropdown show nav-item">
+            <a class="nav-link item dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              تصنيف المشاريع 
+            </a>
+          
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="{% url 'followhome'  %}">المتابعيين</a>
+              <a class="dropdown-item" href="{% url 'cat'  slug='uiux_design' %}">تصميم مواقع وتطبيقات</a>
+              <a class="dropdown-item" href="{% url 'cat'  slug='interior-design' %}">التصميم الداخلي</a>
+              <a class="dropdown-item" href="{% url 'cat'  slug='external-design' %}">التصميم الخارجي</a>
+              <a class="dropdown-item" href="{% url 'cat'  slug='social-media-post' %}">تصميم بوستات سوشيال ميديا</a>
+              <a class="dropdown-item" href="{% url 'cat'  slug='branding' %}">براندينج</a>
+              <a class="dropdown-item" href="{% url 'cat'  slug='animation' %}">أنيميشن</a>
+              <a class="dropdown-item" href="{% url 'cat'  slug='logo-making' %}">تصميم لوجو </a>
+              <a class="dropdown-item" href="{% url 'cat'  slug='Typography' %}">تايبوجرافي</a>
+            </div>
+          </div>
+
+
+          
+        </li></ul></nav>
+
+        
+        {% include 'parts/search.html' %} 
+        {% if user.is_authenticated %}
+        {% else %}
+      <nav class="header-nav ms-auto">
+        <ul class="d-flex  align-items-center">
+          <li class="nav-item ">
+            <a class="nav-link item " href="{% url 'accounts:choose' %}" >إنشاء حساب</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link item" href="{% url 'accounts:login' %}" >تسجيل دخول</a>
+          </li></ul>
+      </nav>
+      {% endif %}
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="{% url 'post' %}" >
+            <i class="bi bi-shop-window"></i>
+                    </a><!-- End Notification Icon -->
+
+        </li><!-- End Notification Nav -->
+
+
+        <!-- <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-icon " href="Freelancer_Profile.html" >
+            <i class="bi bi-person-fill"></i>
+          </a>
+        </li>End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+    {% if user.is_authenticated %} 
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="{% url 'home' %}" class="logo d-flex align-items-center">
+          <img src="{%static 'img/Vlogo.png' %}"  alt=" logo">
+        </a>
+      </div>
+    {% else %}
+        <div class="d-flex align-items-center justify-content-between">
+        <a href="{% url 'index' %}" class="logo d-flex align-items-center">
+          <img src="{%static 'img/Vlogo.png' %}"  alt=" logo">
+        </a>
+      </div>
+    {% endif %}
+  </header><!-- End Header -->
+
+  
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

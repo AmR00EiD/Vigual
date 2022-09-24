@@ -1,0 +1,159 @@
+{% extends 'home/base2.html' %} 
+{% load static %}
+
+{% block title %} المزيد عنا {% endblock %}
+
+
+{% block content %}
+ 
+ 
+
+  <main id="main" dir="rtl">
+ 
+
+   <!-- ======= Features Section ======= -->
+   <section id="features" class="features" data-aos="fade-up">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>المزيد عننا</h2>
+        <p>
+          عند تسجيلك في موقع فيجوال يجب عليك اختيار من بين كونك ( عميل - فريلانسر)
+                </p>
+      </div>
+
+      <div class="row content"> 
+        <div class="col-md-7 pt-4" data-aos="fade-left" data-aos-delay="100">
+          <h3>دليل الفريلانسر</h3>
+          <ul>
+            <li><i class="bi bi-check"></i> يمكنك  كمصمم تصفح المشاريع الموجوده مسبقا من قبل المصممين الاخرين 
+            </li>
+              <li><i class="bi bi-check"></i>   يمكنك ايضا مشاركتنا مشاريعك الخاصة عن طريق زر اضافة مشروع الموجود في صفحتك الشخصية</li>
+            <li><i class="bi bi-check"></i> يمكنك تلقي رسائل العملاء كما يمكنك ايضا تقديم العروض في منشورات العملاء</li>
+            <li><i class="bi bi-check"></i>بعد التواصل مع العميل يجب عليك انشاء تعاقد يتضمن كل طلبات العميل</li>
+            <li><i class="bi bi-check"></i> بعد الانتهاء من التصميم يجب عليك ارفاق التصميم في المكان المخصص لتسليم المشروع</li>
+          </ul>
+        </div>
+        <div class="col-md-5" data-aos="fade-right" data-aos-delay="100">
+          <img src="{%static '/img/features-1.png'%}" class="img-fluid" alt="">
+        </div>
+      </div>
+
+    
+
+      <div class="row content">
+        <div class="col-md-5" data-aos="fade-right">
+          <img src="{%static '/img/features-2.png'%}" class="img-fluid" alt="">
+        </div>
+        <div class="col-md-7 pt-5" data-aos="fade-left">
+          <h3>دليل العميل</h3>
+          <ul>
+            <li><i class="bi bi-check"></i> عند تسجيل دخولك في فيجوال يمكنك تصفح المشاريع الموجوده في مختلف المجالات المرفوعة مسبقا من قبل المصممين</li>
+            <li><i class="bi bi-check"></i>يمكنك ايضا طلب مشروعك الخاص من خلال أما مخاظبة المصمم بشكل مباشر عن طريق صفحته الشخصية او بعرض طلبك الخاص في صفحة المنشورات</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row content">
+        <div class="col-md-5 order-1 order-md-2" data-aos="fade-left">
+          <img src="{%static '/img/features-3.png'%}" class="img-fluid" alt="">
+        </div>
+        <div class="col-md-7 pt-5 order-2 order-md-1" data-aos="fade-right">
+          <h3>الدفع</h3>
+          <ul>
+            <li><i class="bi bi-check"></i> قبل استلام العميل التصميم يجب عليه الدفع مسبقا ثم استلام المشروع</li>
+            <li><i class="bi bi-check"></i> يستلم الفريلانسر المبلغ المتفق عليه بعد استلام العميل المشروع</li>
+            <li><i class="bi bi-check"></i> يتم الدفع عن طريق paypal او mastercard</li>
+            <li><i class="bi bi-check"></i>ذا كان هناك خلل في احدي القواعد المتفق عليها في العقد او في عملية الدفع يرجي التواصل مع ادارة الموقع من خلال صفحة التواصل معنا</li>
+          </ul>
+        
+        </div>
+      </div>
+   
+
+    </div>
+  </section><!-- End Features Section -->
+
+  <!-- ======= Contact Section ======= -->
+  <section id="contact" class="contact section-bg">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>تواصل معنا</h2>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 mt-4 mt-md-0">
+          <form action="" method="post" role="form" class="php-email-form">
+             {% csrf_token %}
+            {% if user.is_authenticated %}
+
+
+            {% else %}
+              <div class="row">
+                  <div class="col-md-6 form-group">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="اسمك بالكامل" required>
+                  </div>
+                  <div class="col-md-6 form-group mt-3 mt-md-0">
+                    <input type="email" class="form-control" name="email" id="email" placeholder=" البريد الالكتروني" required>
+                  </div>
+                </div>
+               {% endif %} 
+
+
+            <div class="form-group mt-3">
+              <input type="text" class="form-control" name="subject" id="subject" placeholder="العنوان" required>
+            </div>
+            <div class="form-group mt-3">
+              <textarea class="form-control" name="message" rows="5" placeholder="الرسالة" required></textarea>
+            </div>
+            <div class="my-3">
+              <div class="loading">تحميل</div>
+              <div class="error-message"></div>
+              <div class="sent-message">تم ارسال الرسالة ! شكرا لك</div>
+            </div>
+            <div class="text-center"><button type="submit"> إرسال الرسالة</button></div>
+          </form>
+          {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+              <div class="alert alert-success" role="alert">
+                {{ message }}
+              </div>
+              
+            
+              {% endfor %}
+          </ul>
+
+          {% endif %}
+        </div>
+        <div class="col-lg-6">
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="info-box">
+                <i class="bx bx-envelope"></i>
+                <h3> البريد الالكتروني</h3>
+                <p>info@example.com</p>
+              </div>
+            </div>
+          
+            <div class="col-md-12">
+              <div class="info-box mt-4">
+                <i class="bx bx-phone-call"></i>
+                <h3>اتصل بنا</h3>
+                <p dir="ltr">0 777 5000  </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        
+
+      </div>
+
+    </div>
+  </section><!-- End Contact Section -->
+  </main><!-- End #main -->
+  {% endblock content %}

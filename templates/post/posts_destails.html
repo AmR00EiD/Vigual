@@ -1,0 +1,193 @@
+{% extends 'post/base.html' %} 
+{% block title %} {{post.id}}تفاصيل المشروع{% endblock %}
+{% load static %}
+
+
+{% block content %}
+
+<body>
+
+  
+
+
+  <main id="main" dir="rtl">
+  
+  
+
+	 <!-- ======= title Section ======= -->
+
+  
+	<!-- End title Section -->
+
+       <!-- ======= posts Section ======= -->
+       <section id="testimonials">
+        <div class="container" data-aos="fade-up"> 
+            <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+                <h2>تفاصيل المشروع</h2>
+            
+              </div>
+              <div class="container mt-5">
+                <div class="d-flex justify-content-center row">
+                    <div class="col-md-9">
+                        <div class="d-flex flex-column comment-section">
+                            <div class="bg-white p-2">
+                                <div class="d-flex flex-row user-info">
+                                    <div class="d-flex flex-column justify-content-start ml-2">
+                                      <span class="d-block font-weight-bold ">{{post.author.user.first_name}}  {{post.author.user.last_name}}</span>
+                                      </div>
+                                </div>
+                                <div class="mt-5">
+                                    <p class="comment-text">
+                                      {{post.content}}                                    </p>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
+            {% if user.user_type == 'client' %}
+            {% else %}
+              <form method="POST" action=''>
+                {% csrf_token %}     
+                  <!-- add propsal -->
+                  <div class="container mt-5">
+                      <div class="d-flex justify-content-center row">
+                          <div class="col-md-9">
+                              <div class="d-flex flex-column comment-section">
+                                  <div class="bg-white p-2">
+                                      <div class="d-flex flex-row user-info">
+                                    
+                                        
+                                      <div class="mt-2 ">
+                                          <p class=" d-block font-weight-bold name ">أضف عرضك الان
+                                          </p>
+                                          </div>
+                                          
+                                  </div>
+                                  <div class="row justify-content-between">
+                                      <div class="col-md-4 mb-4">
+                                        <div class="form-outline">
+                                          <label class="form-label" for="form3Example1m">تحديد السعر </label>
+                                          {{commentform.cost}}    
+                                        </div>
+                                      </div>
+                                      <div class="col-md-4 mb-4">
+                                        <div class="form-outline">
+                                          <label class="form-label" for="form3Example1n">مدة التسليم </label>
+                                          {{commentform.date}} 
+                                        </div>
+                                      </div>
+                                    </div>
+                                  <div class=" p-2">
+                                      <div class="d-flex flex-row align-items-start">
+                                        {{commentform.content}} 
+                                      </div>
+                                      <div class="mt-2 text-right">
+                                        <button class="btn btn-primary btn-sm shadow-none" type="submit"> أضف عرضك</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </form>
+            {% endif %}
+
+
+<!--comments-->
+<div class="container mt-5">
+
+    <div class="row  d-flex justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="headings d-flex justify-content-between align-items-center mb-3">
+                <h5> العروض المقدمة</h5>
+
+            </div>
+
+
+          {% for co in comments %}
+              <div class="card p-2">
+
+                  <div class="d-flex justify-content-between align-items-center">
+
+                <div class="user d-flex flex-row align-items-center">
+
+                  <img src="{{co.usercomment.user.Profileimg.url}}" width="30" class="user-img rounded-circle mr-1">
+
+                  <span>
+                    
+                    {% if user.username == co.usercomment.user.username %}
+                      <a class="font-weight-bold text-primary" href={% url 'accounts:freelancerprofile'  %} >{{co.usercomment}}</a> 
+                    {% else %}
+                      <a class="font-weight-bold text-primary" href={% url 'accounts:freelancerdetail' co.usercomment.slug %} >{{co.usercomment}}</a>
+                    {% endif %}
+                    <small class=" date text-black-50">{{co.usercomment.person_cat}}</small></span>
+                    
+                </div>
+                
+
+                <small>{{co.created_on}}</small>
+
+                </div>
+
+
+                <div class="action d-flex justify-content-between mt-2 align-items-center">
+
+                  <div class="reply px-4">
+                    <h6>{{co.content}}</h6>
+                      <small>{{co.cost}} دولار</small>
+                      <span class="dots"></span>
+                      <small>-</small>
+                      <span class="dots"></span>
+                      <small>{{co.date}}</small>
+                    
+                  </div>
+
+                
+                    
+                </div>
+
+
+                  
+              </div>
+          {% endfor %}
+
+
+
+
+          </div>
+
+
+              
+          </div>
+
+
+ 
+
+
+
+
+
+
+
+
+
+          
+      </div>
+
+        </div>
+        
+    </div>
+    
+</div>
+      
+      </section><!-- End posts Section -->
+
+ 
+    
+  </main><!-- End #main -->
+
+  {% endblock content %} 

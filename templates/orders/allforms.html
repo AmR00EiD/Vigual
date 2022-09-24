@@ -1,0 +1,178 @@
+{% extends 'orders/base.html' %} 
+{% load static %}
+{% block content %}
+
+
+
+<body>
+
+
+  <main id="main" dir="rtl">
+  
+    
+
+    <div class="section-title" data-aos="fade-in" data-aos-delay="50">
+        
+        {% if forms.count  == 0 %}
+            <p>لا يوجد عقود لعرضها</p>
+
+        {% endif %}
+
+    
+    </div>
+
+
+
+
+
+                
+			
+				
+
+
+    <table class="table align-middle mb-0 bg-white">
+        
+        <thead class="bg-light">
+          <tr>
+            <th>اسم العميل</th>
+            <th>العقد</th>
+            <th> موعد التسليم</th>
+            <th>مدفوع</th>
+            <th>تم تسليمه</th>
+            <th>المشروع</th>
+            <th>تم استلامه</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+
+            
+            
+            {% for ff in forms %}  
+            
+            <tr>
+                <td>
+                <div class="d-flex align-items-center">
+                    <img 
+                        src="{{ff.receiver.user.Profileimg.url}}"
+                        alt=""
+                        style="width: 45px; height: 45px"
+                        class="rounded-circle"
+                        />
+                    <div class="ms-3">
+                    <a class="fw-bold mb-1" href="{% url 'accounts:clientdetail' ff.receiver.slug%}" >{{ff.receiver.user.first_name}}  {{ff.receiver.user.last_name}}</a>
+                    <p class="text-muted mb-0">{{ff.receiver.user.email}}</p>
+                    </div>
+                </div>
+                </td>
+                {% if ff.submit == True  %}
+                <td>
+                
+                    <a href="{% url 'viewform' ff.id %}" >{{ff.ordername}}</a>
+                    
+                
+                </td>
+                {% else %}
+                <td>
+                
+                    <a href="{% url 'viewform2' ff.id %}" >{{ff.ordername}}</a>
+                    
+                
+                </td>
+                {% endif %}
+                
+                <td>    
+                    <a >{{ff.deadline}}</a>
+                </td>
+                
+   
+                
+
+                {% if ff.paid == True  %}
+                <td>    
+                    <a type="button" class="btn btn-outline-primary"> تم الدفع</a>
+                </td>
+                {% else %}
+                        <td> 
+
+                            <a type="button" class="btn btn-outline-danger">لم يدفع بعد</a>
+                        </td>
+                
+                {% endif %}
+
+
+
+
+                {% if ff.submit == True  %}
+                <td>    
+                    <a type="button" class="btn btn-outline-primary">تم تسليم الطلب</a>
+                </td>
+                {% else %}
+                        <td> 
+
+                            <a type="button" class="btn btn-outline-danger">لم يتم التسليم</a>
+                        </td>
+                
+                {% endif %}
+
+
+
+
+                {% if ff.paid == True %}
+                    {% if ff.submit == True  %}
+                        <td>    
+                            <a type="button" class="btn btn-light" href="#" title="قم بتسليم المشروع" >لقد قمت بتسليمه </a>
+                        </td>
+                    {% else %}
+                        <td>    
+                            <a type="button" class="btn btn-light" href="{% url 'taslemorders' ff.id%}" title="قم بتسليم المشروع" > تسليم الطلب</a>
+                        </td>
+                    {% endif %}
+                {% else %}
+                    <td>    
+                        <a type="button" class="btn btn-light" href="{% url 'createchat' ff.receiver.user.id %}" title='لا تسطتيع تسليمه اذا لم يدفع العميل' >تواصل مع العميل</a>
+                    </td>
+                {% endif %}    
+
+
+                {% if ff.confirm == True  %}
+                <td>    
+                    <a type="button" class="btn btn-outline-primary">تم استلام الطلب</a>
+                </td>
+                {% else %}
+                        <td> 
+
+                            <a type="button" class="btn btn-outline-danger">لم يتم استلام</a>
+                        </td>
+                
+                {% endif %}
+
+            
+            
+            
+            
+
+            {% endfor %} 
+
+            
+            
+        
+            </tr>
+        
+        
+        
+        
+        
+        </tbody>
+
+      </table>
+      
+    
+
+    
+ </main><!-- End #main -->
+    
+    </body>
+    
+    </html>
+{% endblock content %}    

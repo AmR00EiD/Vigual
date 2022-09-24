@@ -1,0 +1,93 @@
+{% extends 'post/base.html' %} 
+{% block title %} from {% endblock %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+
+
+  <main id="main" dir="rtl">
+	 <!-- ======= title Section ======= -->
+
+    <section class="section">
+        <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+			<h2>عقد العمل </h2>
+		  </div>
+        <div class="row">
+          <div class="col-lg-12">
+  
+            <div class="card">
+              <div class="card-body">
+  
+                <!--  Form Elements -->
+                <form method='POST'>
+                  {% csrf_token %}
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">العميل</label>
+                    <div class="col-sm-10">
+                    {{orderform.receiver}}
+                    </div>
+                  </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">الفئة / التصنيف</label>
+                        <div class="col-sm-10">
+                        {{orderform.category}}
+                        </div>
+                      </div>
+
+                  <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">اسم المشروع</label>
+                    <div class="col-sm-10">
+                      {{orderform.ordername}}
+                    </div>
+                  </div>
+             
+
+               
+                  <div class="row mb-3">
+                    <label for="inputDate" class="col-sm-2 col-form-label">موعد التسليم</label>
+                    <div class="col-sm-10">
+                      {{orderform.deadline}}
+                    </div>
+                  </div>
+                  
+                  <div class="input-group mb-3 col-sm-10">
+                    <label for="inputcost" class="col-sm-2 col-form-label">التكلفة</label>
+                    {{orderform.cost}}
+                    <span class="input-group-text"> $ </span>
+                  </div>
+                
+                  <div class="row mb-3">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">الوصف</label>
+                    <div class="col-sm-10">
+                      {{orderform.order_cond}}
+                    </div>
+                  </div>
+                
+                  <div class="text-center p-md-5">
+                    <button type="submit" class="btn btn-primary">انشاء عقد</button>
+                  </div>
+  
+               
+  
+                </form><!-- End General Form Elements -->
+  
+         
+  
+      
+           
+              </div>
+        </div>
+          </div>
+        </div>
+      </section>
+  
+  </main><!-- End #main -->
+
+
+
+{% endblock content %}  

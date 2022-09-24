@@ -1,0 +1,133 @@
+{% extends 'post/base.html' %} 
+{% block title %} from {% endblock %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+
+
+  <main id="main" dir="rtl">
+	 <!-- ======= title Section ======= -->
+
+    <section class="section">
+        <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+			<h2>عقد العمل </h2>
+		  </div>
+        <div class="row">
+          <div class="col-lg-12">
+  
+            <div class="card">
+              <div class="card-body">
+  
+                <!--  Form Elements -->
+                <div class="row mb-3">
+                  {% if user.user_type == 'freelancer' %}
+                  
+                  <label class="col-sm-2 col-form-label"> العميل </label>
+                  <div class="col-sm-10">
+                      <a class="form-control" style="height: 50px" href={% url 'accounts:clientdetail' client_form.receiver.slug %}> {{client_form.receiver}}</a>
+                  
+                  </div>
+                </div>
+                  {% else %}
+                    <label class="col-sm-2 col-form-label"> الفريلانسر </label>
+                      <div class="col-sm-10">
+                          <a class="form-control" style="height: 50px" href={% url 'accounts:freelancerdetail' client_form.sender.slug %}> {{client_form.sender}}</a>
+                      
+                      </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">الفئة / التصنيف</label>
+                        <div class="col-sm-10">
+                            <a class="form-control" style="height: 50px"> {{client_form.category}}</a>
+                        
+                        </div>
+                      </div>
+
+                  <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">اسم المشروع</label>
+                    <div class="col-sm-10">
+                        <a class="form-control" style="height: 50px"> {{client_form.ordername}}</a>
+                      
+                    </div>
+                  </div>
+             
+
+               
+                  <div class="row mb-3">
+                    <label for="inputDate" class="col-sm-2 col-form-label">موعد التسليم</label>
+                    <div class="col-sm-10">
+                        <a class="form-control" style="height: 50px"> {{client_form.deadline}}</a>
+                     
+                    </div>
+                  </div>
+                  
+                  <div class="input-group mb-3 col-sm-10">
+                    <label for="inputcost" class="col-sm-2 col-form-label">التكلفة</label>
+                    <span class="input-group-text"> $ </span>
+                    <a class="form-control" style="height: 50px"> {{client_form.cost}}</a>
+                    
+                  </div>
+                
+                  <div class="row mb-3">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">الوصف</label>
+                    <div class="col-sm-10">
+                        <a class="form-control" style="height: 100px"> {{client_form.order_cond}}</a>
+                    </div>
+                  </div>
+                
+                  {% if user.user_type == 'freelancer' %}
+                  
+                  <div class="text-center p-md-5">  
+                    <a class="btn btn-secondary" href={% url 'createchat' client_form.receiver.user.id %} title="تواصل مع الفريلانسر">تواصل مع العميل</a>
+                  
+                  </div>
+                  {% else %}  
+                          {% if client_form.paid == True %}
+                            <div class="text-center p-md-5">  
+                            <a class="btn btn-secondary" href={% url 'createchat' client_form.sender.user.id %} title="تواصل مع الفريلانسر">تواصل مع الفريلانسر</a>
+                            
+                          
+                              {% if client_form.submit == True %}
+
+              
+                              {% else %}
+                                  <a class="btn btn-secondary" href="#" title="لم ينتهي المشروع">لم ينتهي المشروع</a>
+                              {% endif %}
+                          
+                          </div>
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                            {% else %}
+                          
+                            <div class="text-center p-md-5">
+                              <a  class="btn btn-primary" href={% url 'payment' client_form.id %} >قبول</a>
+                              <a class="btn btn-secondary" href={% url 'createchat' client_form.sender.user.id %} title="الرجوع الى الرسائل لبدء التفاوض"> بدء التفاوض</a>
+                              <a class="btn btn-danger" href={% url 'delete_form' client_form.id %} >رفض</a>
+                            </div>
+                          {% endif %}
+                {% endif %}           
+              </div>
+        </div>
+          </div>
+        </div>
+      </section>
+  
+  </main><!-- End #main -->
+
+
+
+{% endblock content %}  

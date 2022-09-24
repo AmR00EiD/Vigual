@@ -1,0 +1,121 @@
+{% extends 'orders/base.html' %} 
+{% load static %}
+
+{% block content %}
+
+
+
+  <body>
+
+    <!-- ======= Header ======= -->
+    
+
+
+  <main id="main" dir="rtl">
+    
+        <!--اضافة عمل جديد -->
+            <div class="container" id="add-project">
+                <div class="d-flex align-items-center">
+                    {% comment %} <div class="col-xl-25 col-lg-9 col-md-20 col-sm-20 col-20"> {% endcomment %}
+                        <form action="" method="post" enctype="multipart/form-data" > 
+                        {% csrf_token %}
+                                <div class="col-xl-8 col-lg-9 col-md-12 col-sm-12 col-12">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="row gutters">
+                                        <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+                                            <h2>إضافة عمل جديد</h2>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
+                                            <div class="form-group mb-4">
+                                                <label for="fullName"> عنوان العمل </label>
+                                                {{ Form.Name }}
+                                        <small style="color: grey;font-size: 12px;"> أضف عنوانا موجزا يصف مشروعك بشكل دقيق </small>
+                                            </div>
+                                        <div class="row gutters">      
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="form-group mb-4">
+                                                        <label for="text">المشروع:</label>
+                                                        {{ Form.Project }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="form-group mb-4">
+                                                        <label for="text">اضافةللمشروع:</label>
+                                                        {{ Form.other }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="form-group mb-4">
+                                                        <label for="text">اضافةللمشروع:</label>
+                                                        {{ Form.other2 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="form-group mb-4">
+                                                        <label for="text">اضافةللمشروع:</label>
+                                                        {{ Form.other3 }}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row gutters">
+                                        
+                                            <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group mb-4">
+                                                    <label for="text"> تفاصيل العمل</label> 
+                                                    {{ Form.content }}
+                                        <small style="color: grey;font-size: 12px;"> أدخل وصفاً مفصلاً لمشروعك وأرفق أمثلة لما تريد ان أمكن </small>
+                            
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group mb-4">
+                                                    <label for="fullName"> تاريخ العمل </label>
+                                                    {{ Form.date }}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group mb-4">
+                                                    <label for="fullName"> المهارات  </label>
+                                                    {{ Form.cat }}
+                                        <small style="color: grey;font-size: 12px;"> حدد المهارات المستخدمة في تنفيذ العمل </small>
+                                                </div>
+                                            </div>
+                            
+                            
+                            
+                                        <div class="row gutters bb">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <div class="text-right ">
+                                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">نشر الآن</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+
+                        </form>
+                    {% comment %} </div>  {% endcomment %}    
+                </div>
+            </div>
+                
+          
+    
+  </main><!-- End #main -->
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
+{% endblock content %}

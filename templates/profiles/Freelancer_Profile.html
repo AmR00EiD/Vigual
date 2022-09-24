@@ -1,0 +1,143 @@
+{% extends 'profiles/base.html' %} 
+
+{% load static %}
+
+{% load thumbnail %}
+{% block content %}
+
+<body>
+
+  
+
+
+  <main id="main" dir="rtl">
+  
+    <div class="container">
+		<div class="main-body">
+			<div class="row">
+                
+				<div class="col-lg-4">
+					<div class="card">
+						<div class="card-body">
+							<div class="d-flex flex-column align-items-center text-center">
+								<a href="{{ user.Profileimg.url }}" class="lightbox">
+								{% thumbnail user.Profileimg 80x80 crop="smart" as im %}
+								<img src="{{ im.url }}"   class="rounded-circle p-1 bg-primary" width="110"    >
+								</a>
+								
+								<div class="mt-3">
+									<h4>{{ user.first_name }}  {{ user.last_name }}</h4>
+									
+                  {% for det in pro %}
+						
+                    		<p class="text-secondary mb-1">{{ det.person_cat }}</p>
+						
+                  {% endfor %}
+
+
+									<p class="text-muted font-size-sm">{{ user.nationality }}</p>
+									<hr class="my-4">
+                                    <h5 class="notes">: التقييم </h5>
+									<div class="progress mb-3" style="height: 5px">
+										<div class="progress-bar bg-warning" role="progressbar" style="width: {{rat.avg_rating}}%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="5"></div>
+									</div>
+									
+                                    <h5 class="notes">تتابع  <span class="notesN"> : {{	following.count }}</span></h5> 
+
+
+                                    <h5 class="notes">المتابعون  <span class="notesN"> : {{follow.count}}</span></h5> 
+
+
+                                    <h5 class="notes">المشاريع  <span class="notesN"> : {{ t }}</span></h5> 
+								</div>
+							</div>
+						
+			
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="card">
+					
+					</div>
+
+                    <div class="row" id="about">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="d-flex align-items-center mb-3">نبذة عني</h5>
+									<p> {{ user.bio }} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	 <!-- ======= Portfolio Section ======= -->
+	 <section id="portfolio" class="portfolio">
+		<div class="container">
+  
+			
+        
+			<div class="container">
+  
+				<div class="section-title" data-aos="fade-in" data-aos-delay="100">
+				  <h2>أعمالي</h2>
+				</div>
+		
+				<div class="row" data-aos="fade-in">
+				  <div class="col-lg-12 d-flex justify-content-center">
+				  <ul id="portfolio-flters">
+					<li data-filter="*" class="filter-active">اعمالي</li>
+
+
+
+{% comment %} 					{% for c in p %}
+						{% for cs in p.cat %}	
+						  <li data-filter="*" class="filter-active">{{cs}}</li>
+						{% endfor %}
+					{% endfor %}		  
+						  <li data-filter=".filter-card">بوستاتي</li> {% endcomment %}
+					  
+				  </ul>
+				  </div>
+			  </div>
+        
+<div class="row portfolio-container" data-aos="fade-up">
+        {% for c in p %}
+		
+		<div class="col-lg-4 col-md-6 portfolio-item filter-app">
+			<div class="portfolio-wrap">
+				{% thumbnail c.Project 500x300 crop="smart" as im %}
+			  	<img src="{{ im.url }}" class="img-fluid" alt="">
+			<div class="portfolio-info">
+		<h4>{{ c.Name }}</h4>
+			  <div class="portfolio-links">
+				<a href="{% url 'project_det' c.id %}"   title="تفاصيل المشروع "><i class="bx bx-link"></i></a>
+				<a href="{% url 'delete_pro' c.id %}" title="delete image"><i class="bx bx-trash"></i></a>
+			  </div>
+			</div>
+			</div>
+		  </div>
+        {% endfor %}
+			 
+			
+  
+			
+  
+		  </div>
+  
+		</div>
+	  </section><!-- End Portfolio Section -->
+
+  </main><!-- End #main -->
+
+</body>
+
+
+{% endblock content %}
